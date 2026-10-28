@@ -16,7 +16,7 @@ As of March 2020, Data Services workshops are being held virtually on Zoom. [See
 
 Before the class, make sure you have a recent version of R and RStudio installed: https://posit.co/download/rstudio-desktop/
 
-Please also install the `tidyverse`, `quarto`, `knitr`, and `sclaes` packages with the R command `install.packages("tidyverse")` or using the package manager.
+Please also install the `tidyverse`, `quarto`, `knitr`, and `scales` packages with the R command `install.packages("tidyverse")` or using the package manager.
 
 ## Materials from Workshop
 
