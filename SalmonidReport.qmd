@@ -1,0 +1,89 @@
+---
+title: "Salmonid Loss Report"
+author: Lubov McKone
+format: html
+params:
+  species: salmon
+  end_date: "20250601"
+---
+
+## Summary
+
+```{r}
+#| label: data-prep
+#| include: FALSE
+
+library(tidyverse)
+library(scales)
+# read data
+
+monthly_losses_data <- read.csv(paste0('data/monthly_losses_data_', params$end_date, '.csv'))
+# data cleaning - only interested in the county level data
+monthly_losses_data <- monthly_losses_data |> filter(geo_group == 'county') |>
+  mutate(date = as_date(date))
+```
+
+```{r}
+#| label: calc-losses
+#| echo: FALSE
+
+# total losses for the most recent month
+losses <- monthly_losses_data |>
+  filter(species == params$species) |>
+  group_by(date) |>
+  summarize(total_losses = sum(losses)) |>
+  filter(date == max(date)) |>
+  pull(total_losses)
+```
+
+Species: **`r params$species`**
+
+Report Start Date: **`r as_date(params$end_date) - months(12)`**
+
+Report End Date: **`r as_date(params$end_date)`**
+
+In **`r format(as_date(params$end_date), '%B %Y')`**, the number of **`r params$species`** lost was `r losses`.
+
+## Percent change over time
+
+This table shows the percent change in **`r params$species`** losses in each month compared to the previous month, for the past 12 months.
+
+```{r}
+#| label: pct-table
+#| echo: FALSE
+#| warning: FALSE
+
+library(knitr)
+# table of percent changes over the last 12 months
+monthly_losses_data |>
+  filter(species == params$species) |>
+  group_by(date) |>
+  summarize(total_losses = sum(losses)) |>
+  mutate(pct_change = label_percent(accuracy = 0.01)((total_losses - lag(total_losses)) / lag(total_losses))) |>
+  filter(between(date, max(date) - months(12), max(date))) |>
+  arrange(desc(date)) |>
+  mutate(date = format(date, '%B %Y')) |>
+  kable(col.names = c('Month', 'Total Losses', 'Percent Change'))
+```
+
+## Losses over time by county
+
+This chart shows change over monthly **`r params$species`** losses within each county.
+
+```{r}
+#| label: loss-chart
+#| echo: FALSE
+#| warning: FALSE
+# chart of losses by county over the last 12 months
+monthly_losses_data |>
+  filter(species == params$species) |>
+  group_by(region, date) |>
+  summarize(total_losses = sum(losses)) |>
+  filter(between(date, max(date) - months(12), max(date))) |>
+  ggplot(aes(x = date, y = total_losses, color = region, group = region)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  scale_y_continuous(labels = comma) +
+  labs(x = "Month", y = "Total losses", title = "Salmonid losses by county", subtitle = "Previous 12 months")
+```

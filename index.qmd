@@ -1,0 +1,13 @@
+---
+title: "Creating Automated Reports in R: An Introduction to Quarto"
+---
+
+This is the website for the workshop "Creating Automated Reports in R: An Introduction to Quarto" offered by JHU Sheridan Libraries Data Services every semester.
+
+Have you ever spent hours formatting output from your R console into a Word document, copying and pasting chunks of code multiple times to run the same analysis on different data, or writing the world's longest code comment to keep track of your analysis pipeline? Then this workshop is for you! Quarto is a free, open source, and highly flexible technical publishing system that can be used to create reproducible, production quality reports (and more) that integrate code, output, and text. In this training, you will receive an in-depth introduction to how to use Quarto to combine text, R code, and output into reproducible reports, in addition to automating repeat analysis with Quarto parameters.
+
+-   **Survey:** Please be sure to take our [survey](https://jh.qualtrics.com/jfe/form/SV_e3UQpWkHBRmsh38) and let us know your feedback about your "Creating Automated Reports in R: An Introduction to Quarto" session.
+
+-   **Slides**: The slides are available [here](https://jhu-data-services.github.io/dplyr-quarto-site/Manipulating%20and%20Joining%20Data%20in%20R%20with%20dplyr.html) (or above using the `Presentation` link).
+
+## 

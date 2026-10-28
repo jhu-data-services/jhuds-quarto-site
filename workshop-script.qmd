@@ -1,0 +1,91 @@
+---
+title: "R scripts"
+toc: true
+df-print: paged
+execute:
+  warning: false
+---
+
+Below are two R scripts: the initial R script we converted to Quarto document during the workshop, and the helper R script for looping over multiple parameters.
+
+### Initial R script
+
+```{r}
+library(tidyverse)
+library(scales)
+
+# read data
+monthly_losses_data <- read.csv('data/monthly_losses_data_20250601.csv')
+
+# data cleaning - only interested in the county level data, convert date column to date
+monthly_losses_data <- monthly_losses_data |> filter(geo_group == 'county') |> 
+  mutate(date = as_date(date))
+
+# total losses for the most recent month
+losses <- monthly_losses_data |>
+  filter(species == 'rainbowtrout') |>
+  group_by(date) |>
+  summarize(total_losses = sum(losses)) |>
+  filter(date == max(date)) |>
+  pull(total_losses)
+
+print(losses)
+
+# table of percent changes over the last 12 months
+monthly_losses_data |>
+  filter(species == 'rainbowtrout') |>
+  group_by(date) |>
+  summarize(total_losses = sum(losses)) |>
+  mutate(pct_change = round((total_losses - lag(total_losses)) / lag(total_losses) * 100, 0)) |>
+  filter(between(date, max(date) - months(12), max(date))) |>
+  arrange(desc(date))
+
+
+# chart of losses by county over the last 12 months
+monthly_losses_data |>
+  filter(species == 'rainbowtrout') |>
+  group_by(region, date) |>
+  summarize(total_losses = sum(losses)) |>
+  filter(between(date, max(date) - months(12), max(date))) |>
+  ggplot(aes(x = date, y = total_losses, color = region, group = region)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  scale_y_continuous(labels = comma) +
+  labs(x = "Month", y = "Total losses", title = "Salmonid losses by county", subtitle = "Previous 12 months")
+```
+
+## R script for looping over multiple parameters
+
+```{r}
+library(quarto)
+
+# Define your list of parameters
+species <- c("rainbowtrout", "salmon")
+date <- '20250601'
+
+# Loop and render
+for (s in species) {
+  quarto::quarto_render(
+    input = "SalmonidReport.qmd",
+    execute_params = list(species = s, end_date = date),
+    output_file = paste0("SalmonidReport_", s, "_", date, ".html")
+  )
+}
+
+dates <- c("20250601", "20251201")
+
+params = tidyr::crossing(
+  species = species,
+  end_date = dates
+)
+
+purrr::walk2(params$species, params$end_date, ~quarto::quarto_render(
+  input = "SalmonidReport.qmd",
+  execute_params = list("species" = .x,
+                        "end_date" = .y),
+  output_file = glue::glue("SalmonidReport_{.x}_{.y}.html")
+))
+
+# for 3 or more parameters, use purrr:pwalk instead of purrr:walk2
+```

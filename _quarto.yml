@@ -1,0 +1,28 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Creating Automated Reports in R: An Introduction to Quarto"
+  body-footer: |
+    All materials on this site are licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/), attributable to Data Services, Johns Hopkins University.
+  navbar:
+    left:
+      - href: index.qmd
+        text: Resources
+      - href: CreatingAutomatedReportsinRIntroQuarto.qmd
+        text: Presentation
+      - href: workshop-script.qmd
+        text: R scripts
+      - href: SalmonidReport.qmd
+        text: Quarto document
+      
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    
+editor: visual
+
