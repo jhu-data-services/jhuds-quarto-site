@@ -21,8 +21,9 @@ Please also install the `tidyverse`, `quarto`, `knitr`, and `sclaes` packages wi
 ## Materials from Workshop
 
 -   All materials for this workshop can be found at <https://jhu-data-services.github.io/jhuds-quarto-site/>
-    -   Access the presentation slides at <https://jhu-data-services.github.io/dplyr-quarto-site/Manipulating%20and%20Joining%20Data%20in%20R%20with%20dplyr.html>
-    -   Access the script we developed in class at <https://jhu-data-services.github.io/dplyr-quarto-site/workshop-script.html>
+    -   Access the presentation slides at <https://jhu-data-services.github.io/jhuds-quarto-site/CreatingAutomatedReportsinRIntroQuarto.html#/title-slide>
+    -   Access the Quarto document we developed in class at https://jhu-data-services.github.io/jhuds-quarto-site/SalmonidReport.html
+    -   Access the R scripts we looked at in class at <https://jhu-data-services.github.io/dplyr-quarto-site/workshop-script.html>
 
 ## Post-Class Survey
 
@@ -39,4 +40,4 @@ The images, external resources, and cheatsheets linked in this repository may ha
 ## Citation
 
 Please cite this material as:\
-Johns Hopkins University Data Services. March 11 2025. Reshaping and Joining Data in R with dplyr. https://github.com/jhu-data-services/.jhuds-quarto-site
+Johns Hopkins University Data Services. October 28 2026. Creating Automated Reports in R: Introduction to Quarto. https://github.com/jhu-data-services/.jhuds-quarto-site
