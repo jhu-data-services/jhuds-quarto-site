@@ -1,0 +1,289 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Creating Automated Reports in R: An Introduction to Quarto",
+    "section": "",
+    "text": "This is the website for the workshop “Creating Automated Reports in R: An Introduction to Quarto” offered by JHU Sheridan Libraries Data Services every semester.\nHave you ever spent hours formatting output from your R console into a Word document, copying and pasting chunks of code multiple times to run the same analysis on different data, or writing the world’s longest code comment to keep track of your analysis pipeline? Then this workshop is for you! Quarto is a free, open source, and highly flexible technical publishing system that can be used to create reproducible, production quality reports (and more) that integrate code, output, and text. In this training, you will receive an in-depth introduction to how to use Quarto to combine text, R code, and output into reproducible reports, in addition to automating repeat analysis with Quarto parameters.\nAll materials on this site are licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0), attributable to Data Services, Johns Hopkins University."
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#about-data-services",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#about-data-services",
+    "title": "Creating Automated Reports in R",
+    "section": "About Data Services",
+    "text": "About Data Services\nWe help faculty, researchers, and students find, use, manage, visualize and share data.\nhttps://dataservices.library.jhu.edu/\ndataservices@jhu.edu"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#today",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#today",
+    "title": "Creating Automated Reports in R",
+    "section": "Today",
+    "text": "Today\n\n\n\nWhat is Quarto\nQuarto basics\nConverting an R script to a Quarto document\nParameterizing & automating Quarto documents\n\n\n\n\n\nArtwork from “Hello, Quarto” keynote by Julia Lowndes and Mine Çetinkaya-Rundel, presented at RStudio Conference 2022. Illustrated by Allison Horst."
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#you-should-have",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#you-should-have",
+    "title": "Creating Automated Reports in R",
+    "section": "You should have:",
+    "text": "You should have:\n\nR & RStudio installed, as well as the tidyverse, quarto, knitr and scales packages installed.\nExperience using R (optional, but helpful)\nA .zip folder containing:\n\ndata folder\nAn R script, salmonid_analysis.R that we will turn into a Quarto document today\nA helper script for the section on parameterizing Quarto documents, render_salmonid_reports.R\n\n\nGo over unzipping the folder and explain each thing"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#why-quarto",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#why-quarto",
+    "title": "Creating Automated Reports in R",
+    "section": "Why Quarto?",
+    "text": "Why Quarto?\nWith Quarto, you can save and share the results of your analysis (code, results, tables, visualizations, documentation) in a readable format (.html, .pdf, .docx, .pptx, and more)\n\n\n\nWe’re focusing on R today, but Quarto can also run Python, Julia, and more via the jupyter engine / reticulate package, and you can combine different programming languages within one report"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#why-quarto-1",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#why-quarto-1",
+    "title": "Creating Automated Reports in R",
+    "section": "Why Quarto?",
+    "text": "Why Quarto?\nUse parameters to re-run different versions of the same analysis, without re-writing all of your code.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRegenerating a report with updated data.\nRunning a report that covers a specific time period.\nRunning a single analysis multiple times under different conditions."
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#quarto-vs.-rmarkdown",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#quarto-vs.-rmarkdown",
+    "title": "Creating Automated Reports in R",
+    "section": "Quarto vs. RMarkdown",
+    "text": "Quarto vs. RMarkdown\n\n\n\nQuarto is the next generation of RMarkdown\nUser-friendly visual editor, no need for additional package installations to create different output types\n\n\n\n\n\n\n\n\n\n\nIf you are familiar with RMarkdown, you can think of Quarto as an evolution of RMarkdown.\nThe core ideas of RMarkdown were really sound and posed huge possibilities for reproducibility in research - but was limited to R, and operated almost entirely on workarounds to make anything other than a general document\nQuarto built on the creativity of the R community and implemented spinoffs for slides (xaringen), books (bookdown), websites (blogdown), and dashboards (Shiny) etc. more formally\nCompared to RMarkdown, Quarto offers expanded options for inputs (support for more programming languages than R), and more outputs (not just documents, but slides, websites, books, manuscripts. and more)\nThese slides are Quarto, the course website is Quarto - only going to focus on documents today, but the great thing about Quarto is that once you learn the basics its easy to create other output types"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#todays-scenario",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#todays-scenario",
+    "title": "Creating Automated Reports in R",
+    "section": "Today’s scenario",
+    "text": "Today’s scenario\nYou have developed an R script for your lab that compiles and visualizes salmonid mortality data in Norway.\nYour labmates find this summary very useful and they would like to receive a monthly summary of data from the last 12 months. Different teams within the lab focus on different species and want their report tailored to that species."
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#without-quarto",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#without-quarto",
+    "title": "Creating Automated Reports in R",
+    "section": "Without Quarto",
+    "text": "Without Quarto\n\nLet’s look at salmonid_analysis.R\nTo generate the reports we’ve been asked for, we would have to:\n\nManually update the data path and species throughout our code for each new report.\nCopy and paste the relevant numbers and output into a document every time we ran the report.\n\n\n\n\nGo through creating an RProject from the unzipped directory\nOpen R script and run through it"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#from-r-script-to-quarto-document",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#from-r-script-to-quarto-document",
+    "title": "Creating Automated Reports in R",
+    "section": "From R script to Quarto document",
+    "text": "From R script to Quarto document\nLet’s create a new Quarto document:\n\nGive the document a title\nSelect HTML output, which can be opened in any browser. Creating PDFs requires LaTeX (a high-volume installation) and Word documents require Word\nSelect Knitr as our engine, since we are working in R. The Jupyter engine can render R and Python in one document (with some caveats)\n\n\nOpen Quarto, create new document, go over output options and select HTML, select Knitr"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#yaml-header",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#yaml-header",
+    "title": "Creating Automated Reports in R",
+    "section": "YAML Header",
+    "text": "YAML Header\n\nThe YAML header controls the document format and is automatically generated based on options you select when creating your document.\nThere are thousands of YAML header options that vary by output type, a good reference here.\nLet’s edit the YAML header to add ourselves as the author of this document\n\n\nGo over the YAML header. YAML is a markup language that is interpreted by the Quarto engines. The YAML header controls the document format and there are thousands of options for how Quarto can display things, listed here https://quarto.org/docs/reference/ (describe how to navigate this based on\nAcknowledge YAML header, add author, look at options, say we will come back to this"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#adding-text",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#adding-text",
+    "title": "Creating Automated Reports in R",
+    "section": "Adding text ✒️",
+    "text": "Adding text ✒️\n\nCreate headings and text by typing in the visual editor\nLet’s add a heading and paragraph to the top of our document to describe the first number we will calculate in our report: number of salmonid losses.\n\n\nCreate title, paragaph about number of losses"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#code-chunks",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#code-chunks",
+    "title": "Creating Automated Reports in R",
+    "section": "Code chunks 🤖",
+    "text": "Code chunks 🤖\n\nInsert executable code with Insert &gt; Executable Cell\nSpecify options for displaying code chunks with #| at the beginning of the code chunk. Available options are described here.\nLet’s add our calculation for salmonid losses to the report as a code chunk.\n\n\n\nInsert code chunk\nAdd first several lines of code and render document, point out the output from loading in the libraries that we don’t want, but we do want the output from the number of losses\nBreak up into two chunks and use #| to label them and assign options - open https://quarto.org/docs/computations/execution-options.html and go over options\nset include: FALSE in the first cell and echo:FALSE in the second cell. Render the document again and show the change in output."
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#inline-code",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#inline-code",
+    "title": "Creating Automated Reports in R",
+    "section": "Inline code ⛸️",
+    "text": "Inline code ⛸️\n\nYou can add inline code to your document text with the syntax `{r} 2 + 2`\nThe above will render in your Markdown to 4\nLet’s take the losses calculation from our code chunk and add it to our paragraph as inline code.\n\n\n\nmake code inline - move the cell above the text and explain why, type r losses and render to show inline code"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#other-outputs-tables-visualizations",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#other-outputs-tables-visualizations",
+    "title": "Creating Automated Reports in R",
+    "section": "Other outputs: Tables & visualizations 📅📊",
+    "text": "Other outputs: Tables & visualizations 📅📊\nQuarto can display any kind of output from your code - including tables and visualizations.\nThe kable() function from Knitr creates display-ready tables from R output.\nLet’s insert two code chunks - one to display our table of losses over time and another to display our chart of losses by county.\n\n\npaste the code for the table in and ask which options we should set\nlabel chunk and set echo: FALSE , render report\ninstall/load knitr and pipe the table into kable\nNote the warning that is popping up - we want the table output, but not the warnings - have to add the option warning: FALSE to achieve this\ncolumn names, caption can be adjusted with kable - link documentation\nadd in the viz code, add the echo and warning options"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#parameters",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#parameters",
+    "title": "Creating Automated Reports in R",
+    "section": "Parameters",
+    "text": "Parameters\n\nNow we have a report about rainbow trout that we can share with our lab - but remember, our dataset contains multiple species!\nWe can use Quarto parameters to easily re-run our report for a different species.\nParameters are defined in the YAML header using the params option.\nLets add a parameter to the YAML header for species.\n\n\n\nwe know we want to run this for each species, we have salmon and rainbow trout in our dataset\nAdd a Quarto parameter for species and replace “rainbowtrout” with references to this parameter\nRender the document, then replace the parameter with “salmon” and render again\nNote that the html output has been overwritten note that Quarto does not yet have a way to automate this without an external script, which we will look at later\nwrite a little header at the top noting what species the report is for and add the species name to text as a parameter"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#using-parameters-to-read-in-data",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#using-parameters-to-read-in-data",
+    "title": "Creating Automated Reports in R",
+    "section": "Using parameters to read in data",
+    "text": "Using parameters to read in data\n\nIn 6 months, your team asks to you re-generate the report with current data. They also like to get the report monthly from here on out\nSince the datafile will be updated each time we run the report, let’s use a parameter for it so we only have to update the parameters for each report.\n\n\n\nFirst just put the whole filepath in parameter\nLets say the data export always has this naming structure with the end date in the filename - make the parameter the end date instead, changes the readcsv code to paste0\nNow we can use that parameter elsewhere - add date range to summary and descriptions"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#looping-over-parameters",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#looping-over-parameters",
+    "title": "Creating Automated Reports in R",
+    "section": "Looping over parameters ➿",
+    "text": "Looping over parameters ➿\n\nSo far we’ve updated the parameters one at a time in the YAML header, and it hasn’t been too much effort because we only have 2 species\nWhat if we had a longer list of species, and every time we got new data we wanted to generate one report per species?\nThe two things we need to do here are loop over a list of parameters and use those parameters to name our output quarto document. We can’t do either of those things within the Quarto document itself, but a simple script is provided in render_salmonid_reports.R"
+  },
+  {
+    "objectID": "CreatingAutomatedReportsinRIntroQuarto.html#thank-you",
+    "href": "CreatingAutomatedReportsinRIntroQuarto.html#thank-you",
+    "title": "Creating Automated Reports in R",
+    "section": "thank you! 😊",
+    "text": "thank you! 😊\nPlease let us know what you thought of this workshop at our survey (QR code below.)\nAny questions?"
+  },
+  {
+    "objectID": "SalmonidReport.html",
+    "href": "SalmonidReport.html",
+    "title": "Salmonid Loss Report",
+    "section": "",
+    "text": "Species: salmon\nReport Start Date: 2024-06-01\nReport End Date: 2025-06-01\nIn June 2025, the number of salmon lost was 7549240.\nAll materials on this site are licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0), attributable to Data Services, Johns Hopkins University."
+  },
+  {
+    "objectID": "SalmonidReport.html#summary",
+    "href": "SalmonidReport.html#summary",
+    "title": "Salmonid Loss Report",
+    "section": "",
+    "text": "Species: salmon\nReport Start Date: 2024-06-01\nReport End Date: 2025-06-01\nIn June 2025, the number of salmon lost was 7549240."
+  },
+  {
+    "objectID": "SalmonidReport.html#percent-change-over-time",
+    "href": "SalmonidReport.html#percent-change-over-time",
+    "title": "Salmonid Loss Report",
+    "section": "Percent change over time",
+    "text": "Percent change over time\nThis table shows the percent change in salmon losses in each month compared to the previous month, for the past 12 months.\n\n\n\n\n\nMonth\nTotal Losses\nPercent Change\n\n\n\n\nJune 2025\n7549240\n24.50%\n\n\nMay 2025\n6063774\n30.09%\n\n\nApril 2025\n4661171\n11.40%\n\n\nMarch 2025\n4184146\n-23.87%\n\n\nFebruary 2025\n5496169\n2.99%\n\n\nJanuary 2025\n5336679\n9.84%\n\n\nDecember 2024\n4858640\n-21.32%\n\n\nNovember 2024\n6175081\n-10.96%\n\n\nOctober 2024\n6935112\n-12.65%\n\n\nSeptember 2024\n7939886\n32.82%\n\n\nAugust 2024\n5977794\n89.02%\n\n\nJuly 2024\n3162448\n-17.25%\n\n\nJune 2024\n3821683\n-9.23%"
+  },
+  {
+    "objectID": "SalmonidReport.html#losses-over-time-by-county",
+    "href": "SalmonidReport.html#losses-over-time-by-county",
+    "title": "Salmonid Loss Report",
+    "section": "Losses over time by county",
+    "text": "Losses over time by county\nThis chart shows change over monthly salmon losses within each county."
+  },
+  {
+    "objectID": "SalmonidReport_rainbowtrout_20250601.html",
+    "href": "SalmonidReport_rainbowtrout_20250601.html",
+    "title": "Salmonid Loss Report",
+    "section": "",
+    "text": "Species: rainbowtrout\nReport Start Date: 2024-06-01\nReport End Date: 2025-06-01\nIn June 2025, the number of rainbowtrout lost was 162994.\nAll materials on this site are licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0), attributable to Data Services, Johns Hopkins University."
+  },
+  {
+    "objectID": "SalmonidReport_rainbowtrout_20250601.html#summary",
+    "href": "SalmonidReport_rainbowtrout_20250601.html#summary",
+    "title": "Salmonid Loss Report",
+    "section": "",
+    "text": "Species: rainbowtrout\nReport Start Date: 2024-06-01\nReport End Date: 2025-06-01\nIn June 2025, the number of rainbowtrout lost was 162994."
+  },
+  {
+    "objectID": "SalmonidReport_rainbowtrout_20250601.html#percent-change-over-time",
+    "href": "SalmonidReport_rainbowtrout_20250601.html#percent-change-over-time",
+    "title": "Salmonid Loss Report",
+    "section": "Percent change over time",
+    "text": "Percent change over time\nThis table shows the percent change in rainbowtrout losses in each month compared to the previous month, for the past 12 months.\n\n\n\n\n\nMonth\nTotal Losses\nPercent Change\n\n\n\n\nJune 2025\n162994\n-21.14%\n\n\nMay 2025\n206686\n-14.99%\n\n\nApril 2025\n243142\n15.59%\n\n\nMarch 2025\n210342\n-15.80%\n\n\nFebruary 2025\n249810\n10.14%\n\n\nJanuary 2025\n226811\n-39.41%\n\n\nDecember 2024\n374332\n25.81%\n\n\nNovember 2024\n297529\n15.21%\n\n\nOctober 2024\n258240\n-8.10%\n\n\nSeptember 2024\n281014\n3.97%\n\n\nAugust 2024\n270276\n15.39%\n\n\nJuly 2024\n234222\n39.02%\n\n\nJune 2024\n168477\n-5.52%"
+  },
+  {
+    "objectID": "SalmonidReport_rainbowtrout_20250601.html#losses-over-time-by-county",
+    "href": "SalmonidReport_rainbowtrout_20250601.html#losses-over-time-by-county",
+    "title": "Salmonid Loss Report",
+    "section": "Losses over time by county",
+    "text": "Losses over time by county\nThis chart shows change over monthly rainbowtrout losses within each county."
+  },
+  {
+    "objectID": "SalmonidReport_salmon_20250601.html",
+    "href": "SalmonidReport_salmon_20250601.html",
+    "title": "Salmonid Loss Report",
+    "section": "",
+    "text": "Species: salmon\nReport Start Date: 2024-06-01\nReport End Date: 2025-06-01\nIn June 2025, the number of salmon lost was 7549240.\nAll materials on this site are licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0), attributable to Data Services, Johns Hopkins University."
+  },
+  {
+    "objectID": "SalmonidReport_salmon_20250601.html#summary",
+    "href": "SalmonidReport_salmon_20250601.html#summary",
+    "title": "Salmonid Loss Report",
+    "section": "",
+    "text": "Species: salmon\nReport Start Date: 2024-06-01\nReport End Date: 2025-06-01\nIn June 2025, the number of salmon lost was 7549240."
+  },
+  {
+    "objectID": "SalmonidReport_salmon_20250601.html#percent-change-over-time",
+    "href": "SalmonidReport_salmon_20250601.html#percent-change-over-time",
+    "title": "Salmonid Loss Report",
+    "section": "Percent change over time",
+    "text": "Percent change over time\nThis table shows the percent change in salmon losses in each month compared to the previous month, for the past 12 months.\n\n\n\n\n\nMonth\nTotal Losses\nPercent Change\n\n\n\n\nJune 2025\n7549240\n24.50%\n\n\nMay 2025\n6063774\n30.09%\n\n\nApril 2025\n4661171\n11.40%\n\n\nMarch 2025\n4184146\n-23.87%\n\n\nFebruary 2025\n5496169\n2.99%\n\n\nJanuary 2025\n5336679\n9.84%\n\n\nDecember 2024\n4858640\n-21.32%\n\n\nNovember 2024\n6175081\n-10.96%\n\n\nOctober 2024\n6935112\n-12.65%\n\n\nSeptember 2024\n7939886\n32.82%\n\n\nAugust 2024\n5977794\n89.02%\n\n\nJuly 2024\n3162448\n-17.25%\n\n\nJune 2024\n3821683\n-9.23%"
+  },
+  {
+    "objectID": "SalmonidReport_salmon_20250601.html#losses-over-time-by-county",
+    "href": "SalmonidReport_salmon_20250601.html#losses-over-time-by-county",
+    "title": "Salmonid Loss Report",
+    "section": "Losses over time by county",
+    "text": "Losses over time by county\nThis chart shows change over monthly salmon losses within each county."
+  },
+  {
+    "objectID": "SalmonidReport_rainbowtrout_20251201.html",
+    "href": "SalmonidReport_rainbowtrout_20251201.html",
+    "title": "Salmonid Loss Report",
+    "section": "",
+    "text": "Species: rainbowtrout\nReport Start Date: 2024-12-01\nReport End Date: 2025-12-01\nIn December 2025, the number of rainbowtrout lost was 388444.\nAll materials on this site are licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0), attributable to Data Services, Johns Hopkins University."
+  },
+  {
+    "objectID": "SalmonidReport_rainbowtrout_20251201.html#summary",
+    "href": "SalmonidReport_rainbowtrout_20251201.html#summary",
+    "title": "Salmonid Loss Report",
+    "section": "",
+    "text": "Species: rainbowtrout\nReport Start Date: 2024-12-01\nReport End Date: 2025-12-01\nIn December 2025, the number of rainbowtrout lost was 388444."
+  },
+  {
+    "objectID": "SalmonidReport_rainbowtrout_20251201.html#percent-change-over-time",
+    "href": "SalmonidReport_rainbowtrout_20251201.html#percent-change-over-time",
+    "title": "Salmonid Loss Report",
+    "section": "Percent change over time",
+    "text": "Percent change over time\nThis table shows the percent change in rainbowtrout losses in each month compared to the previous month, for the past 12 months.\n\n\n\n\n\nMonth\nTotal Losses\nPercent Change\n\n\n\n\nDecember 2025\n388444\n19.99%\n\n\nNovember 2025\n323736\n-14.88%\n\n\nOctober 2025\n380316\n-27.00%\n\n\nSeptember 2025\n520979\n10.61%\n\n\nAugust 2025\n471021\n50.53%\n\n\nJuly 2025\n312898\n91.97%\n\n\nJune 2025\n162994\n-21.14%\n\n\nMay 2025\n206686\n-14.99%\n\n\nApril 2025\n243142\n15.59%\n\n\nMarch 2025\n210342\n-15.80%\n\n\nFebruary 2025\n249810\n10.14%\n\n\nJanuary 2025\n226811\n-39.41%\n\n\nDecember 2024\n374332\n25.81%"
+  },
+  {
+    "objectID": "SalmonidReport_rainbowtrout_20251201.html#losses-over-time-by-county",
+    "href": "SalmonidReport_rainbowtrout_20251201.html#losses-over-time-by-county",
+    "title": "Salmonid Loss Report",
+    "section": "Losses over time by county",
+    "text": "Losses over time by county\nThis chart shows change over monthly rainbowtrout losses within each county."
+  },
+  {
+    "objectID": "SalmonidReport_salmon_20251201.html",
+    "href": "SalmonidReport_salmon_20251201.html",
+    "title": "Salmonid Loss Report",
+    "section": "",
+    "text": "Species: salmon\nReport Start Date: 2024-12-01\nReport End Date: 2025-12-01\nIn December 2025, the number of salmon lost was 4592530.\nAll materials on this site are licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0), attributable to Data Services, Johns Hopkins University."
+  },
+  {
+    "objectID": "SalmonidReport_salmon_20251201.html#summary",
+    "href": "SalmonidReport_salmon_20251201.html#summary",
+    "title": "Salmonid Loss Report",
+    "section": "",
+    "text": "Species: salmon\nReport Start Date: 2024-12-01\nReport End Date: 2025-12-01\nIn December 2025, the number of salmon lost was 4592530."
+  },
+  {
+    "objectID": "SalmonidReport_salmon_20251201.html#percent-change-over-time",
+    "href": "SalmonidReport_salmon_20251201.html#percent-change-over-time",
+    "title": "Salmonid Loss Report",
+    "section": "Percent change over time",
+    "text": "Percent change over time\nThis table shows the percent change in salmon losses in each month compared to the previous month, for the past 12 months.\n\n\n\n\n\nMonth\nTotal Losses\nPercent Change\n\n\n\n\nDecember 2025\n4592530\n-17.37%\n\n\nNovember 2025\n5557942\n-16.21%\n\n\nOctober 2025\n6633072\n18.03%\n\n\nSeptember 2025\n5619584\n-5.22%\n\n\nAugust 2025\n5929061\n0.87%\n\n\nJuly 2025\n5877847\n-22.14%\n\n\nJune 2025\n7549240\n24.50%\n\n\nMay 2025\n6063774\n30.09%\n\n\nApril 2025\n4661171\n11.40%\n\n\nMarch 2025\n4184146\n-23.87%\n\n\nFebruary 2025\n5496169\n2.99%\n\n\nJanuary 2025\n5336679\n9.84%\n\n\nDecember 2024\n4858640\n-21.32%"
+  },
+  {
+    "objectID": "SalmonidReport_salmon_20251201.html#losses-over-time-by-county",
+    "href": "SalmonidReport_salmon_20251201.html#losses-over-time-by-county",
+    "title": "Salmonid Loss Report",
+    "section": "Losses over time by county",
+    "text": "Losses over time by county\nThis chart shows change over monthly salmon losses within each county."
+  },
+  {
+    "objectID": "workshop-script.html",
+    "href": "workshop-script.html",
+    "title": "R scripts",
+    "section": "",
+    "text": "Below are two R scripts: the initial R script we converted to Quarto document during the workshop, and the helper R script for looping over multiple parameters.\nAll materials on this site are licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0), attributable to Data Services, Johns Hopkins University."
+  },
+  {
+    "objectID": "workshop-script.html#r-script-for-looping-over-multiple-parameters",
+    "href": "workshop-script.html#r-script-for-looping-over-multiple-parameters",
+    "title": "R scripts",
+    "section": "R script for looping over multiple parameters",
+    "text": "R script for looping over multiple parameters\n\nlibrary(quarto)\n\n# Define your list of parameters\nspecies &lt;- c(\"rainbowtrout\", \"salmon\")\ndate &lt;- '20250601'\n\n# Loop and render\nfor (s in species) {\n  quarto::quarto_render(\n    input = \"SalmonidReport.qmd\",\n    execute_params = list(species = s, end_date = date),\n    output_file = paste0(\"SalmonidReport_\", s, \"_\", date, \".html\")\n  )\n}\n\ndates &lt;- c(\"20250601\", \"20251201\")\n\nparams = tidyr::crossing(\n  species = species,\n  end_date = dates\n)\n\npurrr::walk2(params$species, params$end_date, ~quarto::quarto_render(\n  input = \"SalmonidReport.qmd\",\n  execute_params = list(\"species\" = .x,\n                        \"end_date\" = .y),\n  output_file = glue::glue(\"SalmonidReport_{.x}_{.y}.html\")\n))\n\n# for 3 or more parameters, use purrr:pwalk instead of purrr:walk2"
+  }
+]
