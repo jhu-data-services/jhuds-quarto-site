@@ -10,8 +10,6 @@ JHU Data Services, part of the Johns Hopkins University Sheridan Libraries, help
 
 This repository contains materials for one of our live webinars open to JHU students, faculty, and staff. Please [contact us](mailto:dataservices@jhu.edu) with any questions.
 
-As of March 2020, Data Services workshops are being held virtually on Zoom. [See our calendar to register for upcoming workshops.](https://dataservices.library.jhu.edu/training-workshops/calendar/)
-
 ## Pre-Class Instructions
 
 Before the class, make sure you have a recent version of R and RStudio installed: https://posit.co/download/rstudio-desktop/

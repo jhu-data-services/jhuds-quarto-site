@@ -1,7 +1,10 @@
 ---
 title: "Salmonid Loss Report"
+format: 
+  html:
+    code-fold: TRUE
+    code-tools: TRUE
 author: Lubov McKone
-format: html
 params:
   species: salmon
   end_date: "20250601"
