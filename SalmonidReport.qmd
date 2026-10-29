@@ -2,7 +2,6 @@
 title: "Salmonid Loss Report"
 format: 
   html:
-    code-fold: TRUE
     code-tools: TRUE
 author: Lubov McKone
 params:
